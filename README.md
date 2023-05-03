@@ -10,6 +10,7 @@
 
 // 9200번 포트를 이용해서 연결하겠습니다. <br>
 elasticsearch.host.localhost.port= 9200 <br>
+<br>
 // 엘라스틱 서치의 저장소 (하나의 클러스터 안에 들어가는 서버별 저장소 이걸 노드라고 부릅니다. 지금 내 컴퓨터는 1노드입니다.) <br>
 spring.data.elasticsearch.cluster-nodes=localhost:9200: <br>
 
