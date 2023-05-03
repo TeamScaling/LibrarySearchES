@@ -1,0 +1,38 @@
+{
+  "mappings": {
+    "properties": {
+      "id_no": {
+        "type": "long"
+      },
+      "title_nm": {
+        "type": "text",
+        "analyzer": "ngram_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          },
+          "ngram_analyzer": {
+            "type": "text",
+            "analyzer": "ngram_analyzer"
+          }
+        }
+      },
+      "book_intrcn_cn": {
+        "type": "text"
+      },
+      "authr_nm": {
+        "type": "text"
+      },
+      "isbn_thirteen_no": {
+        "type": "keyword"
+      },
+      "image_url": {
+        "type": "keyword"
+      },
+      "loan_cnt": {
+        "type": "integer"
+      }
+    }
+  }
+}
