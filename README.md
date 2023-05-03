@@ -5,8 +5,8 @@
 
 <h3> 1️⃣ 엘라스틱 서치 빌드 버전맞추기, properties 파일 작성 </h3>
 순서대로 엘라스틱 클라이언트를 위한 빌드와 레스트 템플릿을 만들기 위한 빌드
-<h4> implementation 'org.springframework.data:spring-data-elasticsearch:4.2.4'</h4> <br>
-<h4> implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9' </h4> <br>
+<h4> implementation 'org.springframework.data:spring-data-elasticsearch:4.2.4'</h4>
+<h4> implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9' </h4>
 
 
 // 9200번 포트를 이용해서 연결하겠습니다. <br>
