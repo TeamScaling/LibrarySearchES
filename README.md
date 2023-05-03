@@ -11,4 +11,4 @@
 
 
 <img src="https://img.shields.io/badge/implementation-'org.springframework.data%3Aspring--data--elasticsearch%3A4.2.4'-blue"/>
-<img src=https://img.shields.io/badge/implementation-'org.elasticsearch.client'%2C%20name%3A%20'elasticsearch--rest--high--level--client'%2C%20version%3A%20'7.17.9'-blue/>
+<img src=https://img.shields.io/badge/implementation-'org.elasticsearch.client'%2C%20name%3A%20'elasticsearch--rest--high--level--client'%2C%20version%3A%20'7.17.9'-blue"/>
