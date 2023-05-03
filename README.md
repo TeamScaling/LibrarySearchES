@@ -24,6 +24,7 @@ spring.data.elasticsearch.cluster-nodes=localhost:9200: <br>
 
 <h3> 3️⃣ 엘라스틱 서치 다운받고 실행하기 </h3>
 <h4> 1. 엘라스틱 서치 다운받기 8.7.0 버전 (홈페이지 또는 도커에서 다운 받을 수 있습니다.) </h4>
+<h4> https://www.elastic.co/kr/downloads/elasticsearch </h4>
 <h4> 2. 터미널을 이용해서 엘라스틱 서치 폴더 안에 있는 bin에 들어갑니다. cd elasticsearch-8.7.0/bin </h4>
 <h4> 3. 엘라스틱 서치를 실행시킵니다. elasticsearch 입력 </h4>
 <h4> 4. localhost:9200 확인: 들어가보면 json형태로 글자가 보입니다. 여기까지 됐으면 스프링 부트로 갑니다. </h4>
