@@ -5,8 +5,8 @@
 
 <h3> 1️⃣ 엘라스틱 서치 빌드 버전맞추기, properties 파일 작성 </h3>
 순서대로 엘라스틱 클라이언트를 위한 빌드와 레스트 템플릿을 만들기 위한 빌드
-<img src="https://img.shields.io/badge/implementation-'org.springframework.data%3Aspring--data--elasticsearch%3A4.2.4'-blue"/>
-<img src="https://img.shields.io/badge/implementation-'org.elasticsearch.client'%2C%20name%3A%20'elasticsearch--rest--high--level--client'%2C%20version%3A%20'7.17.9'-blue"/>
+"https://img.shields.io/badge/implementation-'org.springframework.data%3Aspring--data--elasticsearch%3A4.2.4'-blue"
+"https://img.shields.io/badge/implementation-'org.elasticsearch.client'%2C%20name%3A%20'elasticsearch--rest--high--level--client'%2C%20version%3A%20'7.17.9'-blue"
 
 // 9200번 포트를 이용해서 연결하겠습니다. <br>
 elasticsearch.host.localhost.port= 9200 <br>
