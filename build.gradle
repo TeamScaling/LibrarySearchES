@@ -1,0 +1,97 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.10'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.scaling'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+//sourceCompatibility = 1.8
+//targetCompatibility = 1.8
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // elasticsearch (버전 맞추는 것 중요)
+    implementation 'org.springframework.data:spring-data-elasticsearch:4.2.4'
+    implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9'
+
+    implementation group: 'org.apache.opennlp', name: 'opennlp-tools', version: '2.1.1'
+    testImplementation group: 'com.github.tomakehurst', name: 'wiremock', version: '2.27.2'
+
+    //caching
+    implementation group: 'org.ehcache', name: 'jcache', version: '1.0.1'
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.5'
+//    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.9.3'
+
+
+    implementation 'com.github.shin285:KOMORAN:3.3.4'
+
+    implementation "com.querydsl:querydsl-jpa"
+    implementation "com.querydsl:querydsl-core"
+    implementation "com.querydsl:querydsl-collections"
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api" // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api" // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
+
+    implementation group: 'org.json', name: 'json', version: '20220924'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.1'
+
+    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.3.0'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.3.0'
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Querydsl 설정부
+def generated = 'src/main/generated'
+
+// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+    delete file(generated)
+}
+
