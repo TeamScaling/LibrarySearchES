@@ -10,3 +10,4 @@
 	/implementation/v/:implementation+group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9'
 
 
+![Cocoapods](https://img.shields.io/cocoapods/v/implementation?color=d&label=d&logo=d&logoColor=d)
