@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "number_of_shards": 10,
+    "number_of_replicas": 1,
+    "analysis": {
+      "analyzer": {
+        "ngram_analyzer": {
+          "tokenizer": "ngram_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "ngram_tokenizer": {
+          "type": "ngram",
+          "max_token_length": 3,
+          "min_gram": 2,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  }
+}
