@@ -4,7 +4,9 @@
 <h1> 엘라스틱 서치 간단 사용 방법 </h1>
 
 <h3> 1. 엘라스틱 서치 버전맞추기 </h3>
-현재는 
-
+현재는 버전은
+  implementation 'org.springframework.data:spring-data-elasticsearch:4.2.4'
+  implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9'
+	/implementation/v/:implementation+group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9'
 
 
