@@ -43,10 +43,6 @@ public class BookEsQueryRepository {
 			.map(SearchHit::getContent)
 			.collect(Collectors.toList());
 		return new PageImpl<>(books, pageable, searchHits.getTotalHits());
-
-		//		NativeSearchQuery nativeSearchQuery = makeNativeQuery(boolQueryBuilder, pageable);
-
-//		return pageBook(nativeSearchQuery, pageable, operations);
 	}
 
 	public Page<Book> findBooksByAuthor(String author, Pageable pageable) {
@@ -77,21 +73,9 @@ public class BookEsQueryRepository {
 
 	private Page<Book> pageBook(NativeSearchQuery nativeSearchQuery, Pageable pageable, ElasticsearchOperations operations){
 		SearchHits<Book> searchHits = operations.search(nativeSearchQuery, Book.class);
-		System.out.println("=========================================================");
-		System.out.println(searchHits);
-		System.out.println("=========================================================");
-
 		List<Book> books = searchHits.getSearchHits().stream()
 			.map(SearchHit::getContent)
 			.collect(Collectors.toList());
 		return new PageImpl<>(books, pageable, searchHits.getTotalHits());
 	}
 }
-
-//		SearchHits<Book> search = operations.search(nativeSearchQuery, Book.class);
-//		List<SearchHit<Book>> searchHitList = search.getSearchHits();
-//		List<Book> list = new ArrayList<>();
-//		for (SearchHit<Book> libraryEsSearchHit : searchHitList) {
-//			list.add(libraryEsSearchHit.getContent());
-//		}
-//		return list;
