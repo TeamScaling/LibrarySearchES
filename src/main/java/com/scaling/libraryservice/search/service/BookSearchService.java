@@ -32,7 +32,6 @@ public class BookSearchService {
 		}
 		if(target.equals("isbn")){
 			books = bookEsQueryRepository.findBooksByIsbn(query, pageable);
-
 		}
 		else {
 			books = bookEsQueryRepository.findBooksByTitle(query, pageable);
