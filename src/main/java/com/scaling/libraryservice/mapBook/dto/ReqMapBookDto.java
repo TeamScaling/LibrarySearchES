@@ -42,8 +42,10 @@ public class ReqMapBookDto implements CacheKey {
 
     public boolean isValidCoordinate(){
 
-        return this.lat > 33.173360 & this.lat < 38.319297
-            & this.lon > 126.559157 & this.lon <127.225938;
+        //대한민국의 위도는 최상단 38.61도 (고성군), 최하단 33.11도(마라도)
+        //대한민국의 경도는 좌측단 124.60(백령도), 우측단 131.87(독도)
+        return this.lat > 33.11 & this.lat < 38.61
+            & this.lon > 124.60 & this.lon <131.87;
     }
 
     @Override
