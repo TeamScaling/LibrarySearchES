@@ -5,7 +5,6 @@ import com.scaling.libraryservice.search.dto.MetaDto;
 import com.scaling.libraryservice.search.dto.RespBooksDto;
 import com.scaling.libraryservice.search.entity.Book;
 import com.scaling.libraryservice.search.repository.BookEsQueryRepository;
-//import com.scaling.libraryservice.search.repository.BookRepository;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookSearchService {
 
-//	private final BookRepository bookRepository;
 	private final BookEsQueryRepository bookEsQueryRepository;
 
 	public RespBooksDto getBooksByTarget(String target, String query, int page, int size) {
@@ -32,7 +30,6 @@ public class BookSearchService {
 		}
 		if(target.equals("isbn")){
 			books = bookEsQueryRepository.findBooksByIsbn(query, pageable);
-
 		}
 		else {
 			books = bookEsQueryRepository.findBooksByTitle(query, pageable);
@@ -40,7 +37,6 @@ public class BookSearchService {
 		return makeBooksDto(books, page, size);
 	}
 
-	// RespBooksDto로 반환
 	private RespBooksDto makeBooksDto(Page<Book>books, int page, int size){
 		Objects.requireNonNull(books);
 

@@ -55,18 +55,8 @@ public class BookDataLoader {
 						List<Future<Void>> futures = new ArrayList<>(); // Future 객체를 저장할 리스트 생성
 
 						for (int i = 0; i < totalCount; i += pageSize) {
-//							String sql = "SELECT * FROM books LIMIT ?, ?";
+							String sql = "SELECT * FROM books LIMIT ?, ?";
 //							String sql = " SELECT * FROM books WHERE id_no > 270000 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 420000 LIMIT ?, ?";
-							String sql = " SELECT * FROM books WHERE id_no > 936000 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 1131224 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 1556323 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 2050114 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 2286114 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 2582114 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 3066114 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 3254114 LIMIT ?, ?";
-//							String sql = " SELECT * FROM books WHERE id_no > 3254114 LIMIT ?, ?";
 							try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 								pstmt.setInt(1, i);
 								pstmt.setInt(2, pageSize);
@@ -74,7 +64,6 @@ public class BookDataLoader {
 									// Elasticsearch에 데이터 색인
 									RestHighLevelClient client = new RestHighLevelClient(
 										RestClient.builder(HttpHost.create("http://localhost:9200")));
-
 
 									BulkRequest bulkRequest = new BulkRequest();
 
@@ -147,5 +136,4 @@ public class BookDataLoader {
 		builder.endObject();
 		return Strings.toString(builder);
 	}
-
 }
