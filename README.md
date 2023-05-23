@@ -1,7 +1,7 @@
 # LibrarySearchES
 
 <img src="https://img.shields.io/badge/-elasticsearch-yellowgreen"/>
-<h1> 엘라스틱 서치 간단 사용 방법 </h1>
+<h1> 서비스 아키텍쳐 </h1>
 
 <h3> 1️⃣ 엘라스틱 서치 간단 개념 </h3>
 <h4> 지금까지 우리가 많이 사용했던 MySQL과 같은 관계형 DB와 엘라스틱 서치는 조금 다릅니다. </h4>
@@ -11,7 +11,7 @@
 <h4> (indices는 index의 복수형? 여기서의 index는 MySQL의 index와는 다른 개념입니다.) </h4>
 <h4> csv 파일또는 MySQL 또는 어딘가에 있는 데이터를 index로 만들어주어야 하는데 그 과정을 indexing이라고 합니다(?) </h4>
 
-<h3> 2️⃣ 엘라스틱 서치 다운받고 실행하기 </h3>
+<h3> 2️⃣ 서비스 아키텍쳐 </h3>
 <h4> 1. 엘라스틱 서치 다운받기 7.17.4 버전 (홈페이지 또는 도커에서 다운 받을 수 있습니다.) 7버전을 써야 쉽게 이용할 수 있습니다.. </h4>
 <h4> https://www.elastic.co/kr/downloads/past-releases/elasticsearch-7-17-4 </h4>
 <h4> 2. 터미널을 이용해서 엘라스틱 서치 폴더 안에 있는 bin에 들어갑니다. cd elasticsearch-8.7.0/bin </h4>
