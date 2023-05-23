@@ -21,8 +21,8 @@ public class AppConfig {
 
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 
-        factory.setConnectTimeout(1000);
-        factory.setReadTimeout(2000);
+        factory.setConnectTimeout(3000);
+        factory.setReadTimeout(4000);
 
         return new RestTemplate(factory);
     }
@@ -32,6 +32,7 @@ public class AppConfig {
 
         return new Komoran(DEFAULT_MODEL.FULL);
     }
+
     @Bean
     public RelationTokenRule relationTokenRule() {
 

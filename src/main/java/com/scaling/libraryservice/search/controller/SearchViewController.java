@@ -28,7 +28,7 @@ public class SearchViewController {
 		@RequestParam(value = "target", defaultValue = "title") String target,
 		ModelMap model)
 	{
-		RespBooksDto searchResult = bookSearchService.getBooksByTarget(target, query, page, size);
+		RespBooksDto searchResult = bookSearchService.getBooksByTarget(query, page, size, target);
 
 		if(!query.isEmpty()) {
 			model.put("searchResult", searchResult);

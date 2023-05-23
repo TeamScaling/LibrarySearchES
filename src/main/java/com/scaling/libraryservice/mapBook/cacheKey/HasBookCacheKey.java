@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class HasBookCacheKey implements CacheKey {
 
-    private String isbn13;
+    private String isbn;
 
     private Integer areaCd;
 
-    public HasBookCacheKey(String isbn13, Integer areaCd) {
-        this.isbn13 = isbn13;
+    public HasBookCacheKey(String isbn, Integer areaCd) {
+        this.isbn = isbn;
         this.areaCd = areaCd;
     }
 
@@ -23,12 +23,12 @@ public class HasBookCacheKey implements CacheKey {
             return false;
         }
         HasBookCacheKey that = (HasBookCacheKey) o;
-        return Objects.equals(isbn13, that.isbn13) && Objects.equals(areaCd,
+        return Objects.equals(isbn, that.isbn) && Objects.equals(areaCd,
             that.areaCd);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isbn13, areaCd);
+        return Objects.hash(isbn, areaCd);
     }
 }

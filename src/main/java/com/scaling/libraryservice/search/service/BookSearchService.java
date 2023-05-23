@@ -19,7 +19,7 @@ public class BookSearchService {
 
 	private final BookEsQueryRepository bookEsQueryRepository;
 
-	public RespBooksDto getBooksByTarget(String target, String query, int page, int size) {
+	public RespBooksDto getBooksByTarget(String query, int page, int size, String target) {
 
 		Pageable pageable = PageRequest.of(page - 1, 10);
 

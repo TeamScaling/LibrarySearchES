@@ -1,10 +1,18 @@
 package com.scaling.libraryservice.commons.caching;
 
 import com.github.benmanes.caffeine.cache.Cache;
+import com.scaling.libraryservice.mapBook.cacheKey.HasBookCacheKey;
+import com.scaling.libraryservice.mapBook.dto.ReqMapBookDto;
+import com.scaling.libraryservice.mapBook.service.LibraryFindService;
+import com.scaling.libraryservice.recommend.cacheKey.RecCacheKey;
+import com.scaling.libraryservice.recommend.service.RecommendService;
+import com.scaling.libraryservice.search.cacheKey.BookCacheKey;
+import com.scaling.libraryservice.search.service.BookSearchService;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -14,33 +22,9 @@ public class CustomCacheManager<T> {
 
     private final Map<Class<?>, Cache<CacheKey,T>> anonymousCache = new HashMap<>();
 
-    private final Map<Class<?>,Class<CacheKey>> personalKeyMap = new HashMap<>();
-
-    public Set<Class<?>> getCustomers(){
-
-        return new HashSet<>(anonymousCache.keySet());
-    }
-
-    public Class<CacheKey> findPersonalKey(Class<?> customer){
-
-       return personalKeyMap.get(customer);
-    }
-
-    public Set<Entry<Class<?>, Cache<CacheKey,T>>> getEntrySet(){
-
-        return anonymousCache.entrySet();
-    }
-
-
     public void registerCaching(Cache<CacheKey,T> cache,Class<?> customer){
         log.info("[{}] is registered in caching System",customer);
         anonymousCache.put(customer,cache);
-
-    }
-
-    public void registerPersonalKey(Class<?> customer,Class<CacheKey> cacheKey){
-
-        personalKeyMap.put(customer,cacheKey);
 
     }
 
@@ -81,5 +65,18 @@ public class CustomCacheManager<T> {
 
             throw new IllegalArgumentException(customer+"is not registered for caching");
         }
+    }
+
+    public CacheKey generateCacheKey(Object[] arguments) {
+
+        log.info("캐시키 생성=======");
+        for (Object obj : arguments) {
+
+            if (obj instanceof CacheKey){
+                return (CacheKey) obj;
+            }
+        }
+
+        throw new UnsupportedOperationException("No suitable CacheKey implementation found for class");
     }
 }

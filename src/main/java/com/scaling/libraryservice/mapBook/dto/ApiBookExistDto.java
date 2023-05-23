@@ -9,11 +9,8 @@ import org.json.JSONObject;
 public class ApiBookExistDto {
 
     private final String isbn13;
-
     private final String libCode;
-
     private final String hasBook;
-
     private final String loanAvailable;
 
     public ApiBookExistDto(JSONObject req, JSONObject result) {

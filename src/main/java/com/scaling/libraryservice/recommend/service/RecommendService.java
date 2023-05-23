@@ -32,8 +32,6 @@ public class RecommendService {
 
     private final RecommendRule recommendRule;
 
-//    private final RecommendRepository recommendRepo;
-
     private final RecommendEsRepository recommendRepo;
 
 //    private final RecommendEsQueryRepository recommendRepo;

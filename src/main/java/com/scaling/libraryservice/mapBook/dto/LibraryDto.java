@@ -14,35 +14,25 @@ import lombok.extern.slf4j.Slf4j;
 public class LibraryDto {
 
     private String libNm;
-
+    private String libCode;
     private Integer libNo;
-
     private Double libLon;
-
     private Double libLat;
-
     private String libArea;
-
     private String libUrl;
-
-    private String oneAreaNm;
-
-    private String twoAreaNm;
     private Integer areaCd;
-
-    private String hasBook;
+    private String hasBook = "N";
+    private boolean isSupportedArea = false;
 
     public LibraryDto(Library library) {
         this.libNm = library.getLibNm();
+        this.libCode = library.getLibNo().toString();
         this.libNo = library.getLibNo();
         this.libLon = library.getLibLon();
         this.libLat = library.getLibLat();
         this.libArea = library.getLibArea();
         this.libUrl = library.getLibUrl();
-        this.oneAreaNm = library.getOneAreaNm();
-        this.twoAreaNm = library.getTwoAreaNm();
         this.areaCd = library.getAreaCd();
-        this.hasBook = "N";
     }
 
     public LibraryDto(Library library,String hasBook) {
@@ -52,18 +42,20 @@ public class LibraryDto {
         this.libLat = library.getLibLat();
         this.libArea = library.getLibArea();
         this.libUrl = library.getLibUrl();
-        this.oneAreaNm = library.getOneAreaNm();
-        this.twoAreaNm = library.getTwoAreaNm();
         this.areaCd = library.getAreaCd();
         this.hasBook = hasBook;
     }
 
-    public LibraryDto(Integer libNo) {
-        this.libNo = libNo;
+    public LibraryDto(Library library,String hasBook,boolean isSupportedArea) {
+        this.libNm = library.getLibNm();
+        this.libNo = library.getLibNo();
+        this.libLon = library.getLibLon();
+        this.libLat = library.getLibLat();
+        this.libArea = library.getLibArea();
+        this.libUrl = library.getLibUrl();
+        this.areaCd = library.getAreaCd();
+        this.hasBook = hasBook;
+        this.isSupportedArea = isSupportedArea;
     }
 
-    public String getFullAreaNm() {
-
-        return this.oneAreaNm + " " + this.twoAreaNm;
-    }
 }

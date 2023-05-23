@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
 @Entity
 @Table(name = "lib_meta")
 public class LibraryMeta {
