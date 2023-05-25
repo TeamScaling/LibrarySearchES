@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -46,27 +49,22 @@ public class ApiQuerySender {
      * @throws OpenApiException API와의 연결에 문제가 있을 경우.
      */
     @Timer
-    public ResponseEntity<String> sendSingleQuery(ConfigureUriBuilder configUriBuilder,
-        String target) throws OpenApiException {
-
+    public CompletableFuture<ResponseEntity<String>> sendSingleQueryAsync(ConfigureUriBuilder configUriBuilder,
+        String target) {
         Objects.requireNonNull(configUriBuilder);
 
-        UriComponentsBuilder uriBuilder = configUriBuilder.configUriBuilder(target);
-
-        ResponseEntity<String> response = null;
-
-        try{
-            response = restTemplate.exchange(
-                uriBuilder.toUriString(),
-                HttpMethod.GET,
-                HttpEntity.EMPTY,
-                String.class);
-        }catch (Exception e){
-            throw new OpenApiException("api 문제");
-        }
-
-
-        return response;
+        return CompletableFuture.supplyAsync(() -> {
+            UriComponentsBuilder uriBuilder = configUriBuilder.configUriBuilder(target);
+            try {
+                return restTemplate.exchange(
+                    uriBuilder.toUriString(),
+                    HttpMethod.GET,
+                    HttpEntity.EMPTY,
+                    String.class);
+            } catch (Exception e) {
+                throw new OpenApiException("api 문제");
+            }
+        });
     }
 
     /**
@@ -81,38 +79,31 @@ public class ApiQuerySender {
     @Timer
     public List<ResponseEntity<String>> sendMultiQuery(List<? extends ConfigureUriBuilder> uriBuilders,
         String target, int nThreads) throws OpenApiException {
-
         Objects.requireNonNull(uriBuilders);
 
-        ExecutorService service = Executors.newFixedThreadPool(nThreads);
+        ExecutorService executorService = Executors.newFixedThreadPool(nThreads);
 
-        List<Callable<ResponseEntity<String>>> tasks = new ArrayList<>();
+        List<CompletableFuture<ResponseEntity<String>>> futures = uriBuilders.stream()
+            .map(builder -> sendSingleQueryAsync(builder, target))
+            .toList();
 
-        for (ConfigureUriBuilder b : uriBuilders) {
-
-            tasks.add(() -> sendSingleQuery(b, target));
-        }
-
-        List<Future<ResponseEntity<String>>> futures;
-
-        List<ResponseEntity<String>> result = new ArrayList<>();
+        List<ResponseEntity<String>> result;
 
         try {
-
-            futures = service.invokeAll(tasks);
-
-            for (Future<ResponseEntity<String>> f : futures) {
-                result.add(f.get());
-            }
-
+            result = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenApplyAsync(v -> futures.stream()
+                    .map(CompletableFuture::join)
+                    .collect(Collectors.toList()))
+                .get();
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.toString());
             throw new OpenApiException("api 문제 발생");
         } finally {
-            service.shutdown();
+            executorService.shutdown();
         }
 
         return result;
+
     }
 
 

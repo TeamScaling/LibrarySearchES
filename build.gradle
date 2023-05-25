@@ -47,10 +47,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.5'
-//    implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.9.3'
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.2'
-
 
     implementation 'com.github.shin285:KOMORAN:3.3.4'
 
@@ -67,10 +64,11 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.3.0'
 
     // 레디스
-//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.0.6'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.0.6'
 
     // 서킷브레이커
-    implementation "io.github.resilience4j:resilience4j-all:2.0.0"
+//    implementation "io.github.resilience4j:resilience4j-all:2.0.0"
+    implementation "io.github.resilience4j:resilience4j-spring-boot2:1.7.1"
     compileOnly  'org.springframework.boot:spring-boot-starter-actuator'
     compileOnly 'org.springframework.boot:spring-boot-starter-aop'
 

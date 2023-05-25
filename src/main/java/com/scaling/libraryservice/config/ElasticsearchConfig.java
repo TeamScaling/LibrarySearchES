@@ -17,6 +17,7 @@ import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchMa
 
 @Configuration
 public class ElasticsearchConfig {
+
 	@Value("${elasticsearch.host}")
 	private String host;
 

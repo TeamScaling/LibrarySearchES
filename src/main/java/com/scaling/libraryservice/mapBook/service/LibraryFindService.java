@@ -1,11 +1,7 @@
 package com.scaling.libraryservice.mapBook.service;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.scaling.libraryservice.commons.caching.CacheKey;
-import com.scaling.libraryservice.commons.caching.CustomCacheManager;
-import com.scaling.libraryservice.commons.caching.CustomCacheable;
 import com.scaling.libraryservice.commons.timer.Timer;
+import com.scaling.libraryservice.config.RedisCacheConfig;
 import com.scaling.libraryservice.mapBook.dto.LibraryDto;
 import com.scaling.libraryservice.mapBook.dto.ReqMapBookDto;
 import com.scaling.libraryservice.mapBook.entity.Library;
@@ -35,21 +31,22 @@ public class LibraryFindService {
     private final LibraryRepository libraryRepo;
     private final LibraryHasBookRepository hasBookRepo;
     private final HasBookAreaRepository hasBookAreaRepo;
-    private final CustomCacheManager<List<LibraryDto>> cacheManager;
+//    private final CustomCacheManager<List<LibraryDto>> cacheManager;
+    private final RedisCacheConfig redisCacheManager;
 
-    @PostConstruct
-    private void init() {
-        // DB에 담겨진 lib_info (도서관 정보)를 빈이 생성될 때, 함께 List로 가져온다.
-        libraries = libraryRepo.findAll();
-
-        Cache<CacheKey, List<LibraryDto>> libraryCache = Caffeine.newBuilder()
-            .expireAfterWrite(1, TimeUnit.HOURS)
-            .maximumSize(1000)
-            .build();
-
-        cacheManager.registerCaching(libraryCache, this.getClass());
-    }
-
+//    @PostConstruct
+//    private void init() {
+//        // DB에 담겨진 lib_info (도서관 정보)를 빈이 생성될 때, 함께 List로 가져온다.
+//        libraries = libraryRepo.findAll();
+//
+//        Cache<CacheKey, List<LibraryDto>> libraryCache = Caffeine.newBuilder()
+//            .expireAfterWrite(1, TimeUnit.HOURS)
+//            .maximumSize(1000)
+//            .build();
+//
+//        cacheManager.registerCaching(libraryCache, this.getClass());
+//    }
+    @Timer
     public List<LibraryDto> getNearByLibraries(ReqMapBookDto reqMapBooDto) throws LocationException {
 
         Objects.requireNonNull(reqMapBooDto);
@@ -66,7 +63,6 @@ public class LibraryFindService {
             .toList();
     }
 
-    @CustomCacheable
     List<LibraryDto> getNearByHasBookLibraries(ReqMapBookDto reqMapBookDto) {
 
         log.info("This is supported Area");
@@ -81,7 +77,6 @@ public class LibraryFindService {
             .stream()
             .map(l -> new LibraryDto(l,"Y", true))
             .toList();
-
 
         if (result.isEmpty()) {
             log.info(areaCd + " 이 지역의 도서관 중 도서를 소장 하는 도서관 없음");

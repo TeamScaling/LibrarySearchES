@@ -1,13 +1,7 @@
 package com.scaling.libraryservice.recommend.service;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.scaling.libraryservice.commons.caching.CacheKey;
-import com.scaling.libraryservice.commons.caching.CustomCacheManager;
-import com.scaling.libraryservice.commons.caching.CustomCacheable;
 import com.scaling.libraryservice.commons.timer.Timer;
 import com.scaling.libraryservice.recommend.dto.RespRecommend;
-import com.scaling.libraryservice.recommend.repository.RecommendEsQueryRepository;
 import com.scaling.libraryservice.recommend.repository.RecommendEsRepository;
 import com.scaling.libraryservice.recommend.util.RecommendRule;
 import com.scaling.libraryservice.search.domain.TitleQuery;
@@ -15,9 +9,7 @@ import com.scaling.libraryservice.search.domain.TitleType;
 import com.scaling.libraryservice.search.dto.BookDto;
 import com.scaling.libraryservice.search.dto.RespBooksDto;
 import com.scaling.libraryservice.search.entity.Book;
-import com.scaling.libraryservice.search.repository.BookEsQueryRepository;
 import com.scaling.libraryservice.search.util.TitleAnalyzer;
-import java.util.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
@@ -38,25 +30,25 @@ public class RecommendService {
 
     private final TitleAnalyzer titleAnalyzer;
 
-    private final CustomCacheManager<List<String>> cacheManager;
-
-    @PostConstruct
-    private void init() {
-
-        Cache<CacheKey, List<String>> bookCache = Caffeine.newBuilder()
-            .expireAfterWrite(1, TimeUnit.HOURS)
-            .maximumSize(1000)
-            .build();
-
-        cacheManager.registerCaching(bookCache, this.getClass());
-    }
+//    private final CustomCacheManager<List<String>> cacheManager;
+//
+//    @PostConstruct
+//    private void init() {
+//
+//        Cache<CacheKey, List<String>> bookCache = Caffeine.newBuilder()
+//            .expireAfterWrite(1, TimeUnit.HOURS)
+//            .maximumSize(1000)
+//            .build();
+//
+//        cacheManager.registerCaching(bookCache, this.getClass());
+//    }
 
     @Timer
     public RespRecommend getRecommendBook2(RespBooksDto searchResult) {
         return recommendRule.recommendBooks(searchResult);
     }
 
-    @CustomCacheable
+
     @Timer
     public List<String> getRecommendBook(String query) {
 

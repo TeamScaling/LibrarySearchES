@@ -1,9 +1,8 @@
-package com.scaling.libraryservice.search.cacheKey;
+package com.scaling.libraryservice.commons.caching;
 
-import com.scaling.libraryservice.commons.caching.CacheKey;
 import java.util.Objects;
 
-public class BookCacheKey implements CacheKey {
+public class BookCacheKey implements CacheKey{
 
     private final String query;
 

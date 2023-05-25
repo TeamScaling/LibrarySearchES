@@ -1,6 +1,6 @@
 package com.scaling.libraryservice.search.dto;
 
-import com.scaling.libraryservice.search.cacheKey.BookCacheKey;
+import com.scaling.libraryservice.commons.caching.BookCacheKey;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,5 @@
-package com.scaling.libraryservice.mapBook.cacheKey;
+package com.scaling.libraryservice.commons.caching;
 
-import com.scaling.libraryservice.commons.caching.CacheKey;
 import java.util.Objects;
 
 public class HasBookCacheKey implements CacheKey {
